@@ -24,6 +24,17 @@ LARGE_FILES=$(sudo find / -xdev -type f -path /var/lib/mysql -prune -size +50M -
 EMAIL_MESSAGE="$EMAIL_MESSAGE $LARGE_FILES"
 EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
 
+EMAIL_MESSAGE="$EMAIL_MESSAGE Checking for some folders larger than 1GB<br>"
+SOME_LARGE_FOLDERS=$(du -h --max-depth=6 /var/www/html/somepathtomagento/ | grep '[0-9]G\>')
+EMAIL_MESSAGE="$EMAIL_MESSAGE $SOME_LARGE_FOLDERS"
+EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
+
+EMAIL_MESSAGE="$EMAIL_MESSAGE Checking for yet another folders larger than 1GB<br>"
+ANOTHER_LARGE_FOLDERS=$(du -h --max-depth=6 /var/www/html/anotherpath/ | grep '[0-9]G\>')
+EMAIL_MESSAGE="$EMAIL_MESSAGE $ANOTHER_LARGE_FOLDERS"
+EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
+
+
 EMAIL_MESSAGE="$EMAIL_MESSAGE <P>Errors</P>"
 # TODO get the user and password from configuration rather than hard code it here
 MYSQL_COUNT=`mysql -u yourdbuser -p'yourpassword' yourdbname -e "SELECT  (SELECT COUNT(*) FROM catalog_product_entity ) as catalogTotal,  (SELECT COUNT(*) FROM chinavasion_products ) as importProducts,  (SELECT COUNT(*) FROM chinavasion_errors ) as totalErrors,  (SELECT COUNT(*) FROM url_rewrite ) as URLRewrites;"`
