@@ -8,6 +8,15 @@ DF=$(df -h | grep /dev/xvda1)
 EMAIL_MESSAGE="$EMAIL_MESSAGE $DF"
 EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
 
+
+TOTAL_IMAGES_ONE=$(find /var/www/html/somepathtomagento/pub/media/catalog/product -type f | wc -l)
+EMAIL_MESSAGE="$EMAIL_MESSAGE $TOTAL_IMAGES_ONE total Images in somepathtomagento/pub/media/catalog/product"
+EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
+
+TOTAL_IMAGES_TWO=$(find /var/www/html/anotherpath/pub/media/catalog/product -type f | wc -l)
+EMAIL_MESSAGE="$EMAIL_MESSAGE $TOTAL_IMAGES_TWO total Images in anotherpath/pub/media/catalog/product"
+EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
+
 EMAIL_MESSAGE="$EMAIL_MESSAGE Checking for files larger than 50MB"
 # Any files larger than 50MB
 LARGE_FILES=$(sudo find / -xdev -type f -path /var/lib/mysql -prune -size +50M -exec du -sh {} ';' | sort -rh | head -n50 >> LARGE_FILES)
@@ -15,7 +24,7 @@ LARGE_FILES=$(sudo find / -xdev -type f -path /var/lib/mysql -prune -size +50M -
 EMAIL_MESSAGE="$EMAIL_MESSAGE $LARGE_FILES"
 EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
 
-EMAIL_MESSAGE="$EMAIL_MESSAGE <P>Chinavasion Errors</P>"
+EMAIL_MESSAGE="$EMAIL_MESSAGE <P>Errors</P>"
 # TODO get the user and password from configuration rather than hard code it here
 MYSQL_COUNT=`mysql -u yourdbuser -p'yourpassword' yourdbname -e "SELECT  (SELECT COUNT(*) FROM catalog_product_entity ) as catalogTotal,  (SELECT COUNT(*) FROM chinavasion_products ) as importProducts,  (SELECT COUNT(*) FROM chinavasion_errors ) as totalErrors,  (SELECT COUNT(*) FROM url_rewrite ) as URLRewrites;"`
 
