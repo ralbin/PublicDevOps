@@ -100,3 +100,14 @@ Magento 2.2 and above
 ## Magento location for saved user/password 
      Do you want to store credentials for repo.magento.com in /home/vagrant/.config/composer/auth.json
      Sometimes i need to edit that and I can never remember where its at, now I know for ever!
+
+### Magento Cloud and SSH
+     Please make sure that when you ssh into the staging environment that you are 
+     passing the -A flag so that your SSH agent is forwarded. 
+     You will also need to make sure you have an agent started and your key added to it before you connect.
+
+     You can start the agent with eval $(ssh-agent) and then ssh-add. 
+     You can then verify the key has been added with ssh-add -l. 
+     Once done, use ssh -A to connect to the staging environment and confirm the agent was forwarded by checking
+     $ echo $SSH_AUTH_SOCK 
+     which should show something. If you see some output, try the rsync again.
