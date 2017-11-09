@@ -111,3 +111,6 @@ Magento 2.2 and above
      Once done, use ssh -A to connect to the staging environment and confirm the agent was forwarded by checking
      $ echo $SSH_AUTH_SOCK 
      which should show something. If you see some output, try the rsync again.
+     
+## Disable all NON magento modules
+     php bin/magento module:status | command grep -v 'Magento' | command grep -v 'List' | xargs php bin/magento module:disable --clear-static-content
