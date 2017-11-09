@@ -9,6 +9,14 @@ EMAIL_MESSAGE="$EMAIL_MESSAGE $DF"
 EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
 
 
+EMAIL_MESSAGE="$EMAIL_MESSAGE MyMagentoSite modules"
+MAGEENABLED=$(php /var/www/html/somemagentosite/bin/magento module:status)
+EMAIL_MESSAGE="$EMAIL_MESSAGE $MAGEENABLED"
+EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
+EMAIL_MESSAGE="$EMAIL_MESSAGE AnotherMagentoSite modules"
+ANOTHERMAGEENABLED=$(php /var/www/html/anothermagentosite/bin/magento module:status)
+EMAIL_MESSAGE="$EMAIL_MESSAGE $ANOTHERMAGEENABLED"
+EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
 TOTAL_IMAGES_ONE=$(find /var/www/html/somepathtomagento/pub/media/catalog/product -type f | wc -l)
 EMAIL_MESSAGE="$EMAIL_MESSAGE $TOTAL_IMAGES_ONE total Images in somepathtomagento/pub/media/catalog/product"
 EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
