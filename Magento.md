@@ -114,3 +114,14 @@ Magento 2.2 and above
      
 ## Disable all NON magento modules
      php bin/magento module:status | command grep -v 'Magento' | command grep -v 'List' | xargs php bin/magento module:disable --clear-static-content
+
+## Check for duplicate products/categories
+     SELECT t1.value, t1.store_id, COUNT() AS NumberOfDuplicates
+    -> FROM catalog_product_entity_varchar AS t1
+    -> JOIN eav_attribute a ON t1.attribute_id = a.attribute_id
+    -> JOIN eav_entity_type e ON a.entity_type_id = e.entity_type_id
+    -> WHERE e.entity_type_code = 'catalog_product'
+    -> AND a.attribute_code = 'url_key'
+    -> GROUP BY t1.value, t1.store_id
+    -> HAVING COUNT() > 1
+    -> ORDER BY COUNT(*) DESC;
