@@ -23,7 +23,7 @@ Find where sessions are kept
      chmod 700 includes
      chmod 600 includes/config.php
 
-##Magento 2
+## Magento 2
 
 Magento 2.2 and above
 
@@ -71,7 +71,7 @@ Magento 2.2 and above
 
 ### Get the dbname and password quickly from the env.php
 
-> cat app/etc/env.php | grep password && cat app/etc/env.php | grep dbname
+> cat app/etc/env.php | grep 'dbname' && cat app/etc/env.php | grep 'username' && cat app/etc/env.php | grep 'password'
 
 ## composer install that skips the php version requirement
      A little backstory, I have a Magento 2.2 site, but my Puphet has issues with php 7.1 and xdebug.
