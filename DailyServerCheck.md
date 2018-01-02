@@ -51,13 +51,14 @@ EMAIL_MESSAGE="$EMAIL_MESSAGE $MYSQL_COUNT"
 
 EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
 EMAIL_MESSAGE="$EMAIL_MESSAGE <P>SSL Cert Expirations</P>"
-SSL_CERT_1=$(sudo ssl-cert-check -c /etc/letsencrypt/live/www.someurl.com/fullchain.pem)
-
+SSL_CERT_1=$(secho | openssl s_client -connect someurl.com:443 2>/dev/null | openssl x509 -noout -dates)
 EMAIL_MESSAGE="$EMAIL_MESSAGE <div>First Cert</div> $SSL_CERT_1"
-SSL_CERT_2=$(sudo ssl-cert-check -c /etc/letsencrypt/live/www.anotherurl.com/fullchain.pem)
 
+SSL_CERT_2=$(echo | openssl s_client -connect someotherurl.com:443 2>/dev/null | openssl x509 -noout -dates)
 EMAIL_MESSAGE="$EMAIL_MESSAGE <div>Another Cert</div> $SSL_CERT_2"
+
 EMAIL_MESSAGE="$EMAIL_MESSAGE <hr>"
 EMAIL_MESSAGE="$EMAIL_MESSAGE <h3>End of report</h3>"
 # Send the email
-echo $EMAIL_MESSAGE | mail -a "Content-type: text/html" -s "Daily server report" info@someemail.com
+echo $EMAIL_MESSAGE | mail -s "$(echo -e "Ddaily server report for russellalbin.com \nContent-Type: text/html")" russell@russellalbin.com
+
