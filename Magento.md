@@ -137,7 +137,10 @@ Magento 2.2 and above
     -> ORDER BY COUNT(*) DESC;
 
 ## Fastly and Magento Cloud
-     2 Things required.  You need a custom TXT record that Magento provides.  This is to prove we own the domain.  A CNAME with the URL for the source and the fastly URL is prod.magentocloud.map.fastly.net
+     2 Things required.  
+     * You need a custom TXT record that Magento provides.  
+     ** This is to prove we own the domain.  
+     * A CNAME with the URL for the source and the fastly URL is prod.magentocloud.map.fastly.net
  
      Sample TXT record
      _globalsign-domain-verification=axto_omRJzUn0R1IUv3sAavXrnJrsHnnaIcZcjmkOb
