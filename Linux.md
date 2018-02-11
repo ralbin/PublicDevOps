@@ -21,3 +21,6 @@
 ### Ubuntu rsync to aws with pem
 
 > rsync -rave "ssh -i /path/to/some.pem" ~/Desktop/aws/* ubuntu@ec2-10-10-10-10.us-east2.compute.amazonaws.com:/path/to/remote/directory
+
+### How to get a servers IP ( outbound )
+> $ dig +short myip.opendns.com @resolver1.opendns.com
