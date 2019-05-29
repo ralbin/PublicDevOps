@@ -517,3 +517,30 @@ Magento 2.2 and above
     use the word all in the request for example
     https://www.example.cloud/rest/all/V1/categories/445
     
+## Magento Cloud ssh forwarding to allow for rsync from environment to environment
+
+Make sure you have the forwarding agent in ~/.ssh/config
+     $ cat ~/.ssh/config 
+    Host ssh.us.magentosite.cloud
+      ForwardAgent yes
+    Host ssh.us-3.magentosite.cloud
+      ForwardAgent yes
+      
+Check to see if your private key is added to ssh-add
+     $ ssh-add -L
+
+If not add it
+     $ ssh-add ~/.ssh/id_rsa
+     
+Try again
+     $ ssh-add -L
+     
+Add make sure the agent is running
+     $ echo  "$SSH_AUTH_SOCK"
+     /private/tmp/com.apple.launchd.Y0KyrDbwj0/Listeners
+     
+     Now you can do your rsync from production to staging
+     First ssh into production with the -A flag
+     ssh -A 1.ent-abcdefg5yga-production-abcdefg3y@ssh.us-3.magento.cloud
+     Now sync media from production to staging
+      rsync -avz --exclude 'catalog/product/cache' ~/pub/media/ -e ssh 1.ent-abcdefg-staging-abcedfg@ssh.us-3.magento.cloud:~/pub/media/ -P
